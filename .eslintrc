@@ -5,8 +5,17 @@
   ],
   "plugins": ["prettier"],
   "rules": {
+    "quotes": ["warn", "single"],
+    "jsx-quotes": ["warn", "prefer-double"],
     "no-console": "error",
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "bracketSpacing": true,
+        "singleQuote": true,
+        "tabWidth": 2
+      }
+    ],
     "import/order": [
       "error",
       {
