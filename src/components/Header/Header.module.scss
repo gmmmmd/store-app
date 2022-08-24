@@ -1,0 +1,107 @@
+@import "@styles/variables";
+@import "@styles/mixins";
+
+.Container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid $color-bg_3;
+  position: relative;
+
+  @media (min-width: $media-tablet) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+.Logo {
+  width: 99px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  z-index: 55;
+
+  @media (min-width: $media-tablet) {
+    width: 130px;
+    height: 42px
+  }
+}
+
+.Nav {
+
+  &__list {
+    @include no-list;
+
+    display: none;
+    gap: 60px;
+
+    @media (min-width: $media-tablet) {
+      display: flex;
+      gap: 60px;
+    }
+
+    &_open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: $color-bg_2;
+      width: 100%;
+      height: 100vh;
+      padding-top: 104px;
+      padding-left: 24px;
+    }
+  }
+  
+  &__link {
+    color: inherit;
+    text-decoration: none;
+    transition: 0.4s color ease-in;
+
+    &:hover,
+    &:active {
+      color: $color-text_4;
+      border-bottom: 2px solid $color-text_4;
+      padding-bottom: 50px;
+    }
+
+    &_active {
+      color: $color-text_4;
+      border-bottom: 2px solid $color-text_4;
+      padding-bottom: 50px;
+    }
+    .Nav__list_open & {
+      border: none;
+
+      &:hover,
+      &:active {
+        color: $color-bg_1;
+      }
+    }
+  }
+}
+
+.Inner {
+  display: none;
+
+  @media (min-width: $media-tablet) {
+    display: flex;
+    gap: 24px;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+
+    fill: none;
+    stroke: $color-bg_4;
+
+    &:hover,
+    &:active {
+      stroke: $color-bg_2;
+    }
+  }
+}
