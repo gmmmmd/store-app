@@ -1,0 +1,90 @@
+@import "@styles/variables";
+
+.Card {  
+  width: calc(50% - 15px);
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+
+  @media (min-width: 1300px) {
+    max-width: 394px;
+  }
+
+  &__image {
+    max-height: 130px;
+    width: 100%;
+    object-fit: contain;
+    margin-bottom: 14px;
+
+    @media (min-width: $media-tablet) {
+      margin-bottom: 26px;
+    }
+  }
+
+  &__textContent {
+    margin-bottom: 12px;
+
+    @media (min-width: $media-tablet) {
+      margin-bottom: 18px;
+    }
+  }
+
+  &__category {
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 6px;
+
+    @media (min-width: $media-tablet) {
+      font-size: 18px;
+      line-height: calc(23 / 18);
+      margin-bottom: 14px;
+    }
+  }
+
+  &__title {
+    margin-bottom: 4px;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -ms-line-clamp: 2;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    display: -webkit-box;
+    display: box;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+
+    @media (min-width: $media-tablet) {
+      margin-bottom: 6px;
+    }
+  }
+
+  &__description {
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -ms-line-clamp: 2;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    display: -webkit-box;
+    display: box;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+
+    @media (min-width: $media-tablet) {
+      font-size: 18px;
+    }
+  }
+
+  &__price {
+    font-size: 14px;
+    line-height: calc(18 / 14);
+    font-weight: 700;
+
+    @media (min-width: $media-tablet) {
+      font-size: 24px;
+    }
+  }
+}

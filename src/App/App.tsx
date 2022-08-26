@@ -1,13 +1,19 @@
 import React from 'react';
 
 import Header from '@components/Header';
-import { BrowserRouter } from 'react-router-dom';
+import Homepage from '@pages/HomePage';
+import ProductPage from '@pages/ProductPage';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Header className="Container" />
-      <div>store-app</div>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/product" element={<ProductPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </BrowserRouter>
   );
 };
