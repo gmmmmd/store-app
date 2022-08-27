@@ -11,30 +11,37 @@ const ProductPage = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const getProduct = await axios.get('https://fakestoreapi.com/products');
-      setProducts(
-        getProduct.data.map(
-          (i: {
-            id: number;
-            image: string;
-            category: string;
-            title: string;
-            description: string;
-            price: number;
-          }) => ({
-            id: i.id,
-            image: i.image,
-            category: i.category,
-            title: i.title,
-            description: i.description,
-            price: i.price,
-          })
-        )
-      );
+      try {
+        const getProducts = await axios.get(
+          'https://fakestoreapi.com/products'
+        );
+        setProducts(
+          getProducts.data.map(
+            (i: {
+              id: number;
+              image: string;
+              category: string;
+              title: string;
+              description: string;
+              price: number;
+            }) => ({
+              id: i.id,
+              image: i.image,
+              category: i.category,
+              title: i.title,
+              description: i.description,
+              price: i.price,
+            })
+          )
+        );
+      } catch (error) {
+        alert('server disabled');
+      }
     };
 
     fetch();
   }, []);
+
   return (
     <main className="Container">
       <section className={styles.TitleWrapper}>

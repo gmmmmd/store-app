@@ -1,6 +1,8 @@
 @import "@styles/_variables";
 
 .Block {
+  display: flex;
+  gap: 29px;
   padding-bottom: 30px;
 
   @media (min-width: $media-tablet) {
@@ -8,6 +10,7 @@
   }
 
   &__wrapper {
+    width: 100%;
     max-width: 100%;
     box-shadow: 0 4px 80px rgba(175, 173, 181, 0.2);
   }
@@ -41,6 +44,14 @@
 
     @media (min-width: $media-tablet) {
       max-width: 138px;
+    }
+  }
+
+  &__select {
+    display: none;
+
+    @media (min-width: $media-tablet) {
+      display: block;
     }
   }
 }

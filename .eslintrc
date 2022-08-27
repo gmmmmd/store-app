@@ -7,10 +7,11 @@
   "rules": {
     "quotes": ["warn", "single"],
     "jsx-quotes": ["warn", "prefer-double"],
-    "no-console": "error",
+    "no-console": "error",    
     "prettier/prettier": [
       "error",
       {
+        "endOfLine":"auto",
         "bracketSpacing": true,
         "singleQuote": true,
         "tabWidth": 2

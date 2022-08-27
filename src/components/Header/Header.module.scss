@@ -80,7 +80,9 @@
       padding-bottom: 50px;
       
       .Nav__list_open & {
-        color: $color-text_2;
+        @media (max-width: $media-tablet) {
+          color: $color-text_2;
+        }
       }
     }
 

@@ -12,9 +12,11 @@ export type ProductsListProps = {
 
 const ProductList: React.FC<ProductsListProps> = ({ products, items }) => {
   const [amount, setAmount] = useState(items);
+
   useEffect(() => {
     setAmount(products.length);
   }, [products.length]);
+
   return (
     <section className={styles.ProductList}>
       <div className={styles.ProductList__header}>

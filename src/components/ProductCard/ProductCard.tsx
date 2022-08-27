@@ -1,14 +1,18 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import styles from './ProductCard.module.scss';
 
 export type ProductCardProps = {
-  id: number;
+  id: number | null;
   image: string;
   category: string;
   title: string;
   description: string;
-  price?: string;
+  price: number | null;
+  rate?: number | null;
+  count?: number | null;
   onClick?: React.MouseEventHandler;
 };
 
@@ -22,7 +26,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   id,
 }) => {
   return (
-    <div key={id} onClick={onClick} className={styles.Card}>
+    <Link
+      to={`/product/${id}`}
+      key={id}
+      onClick={onClick}
+      className={styles.Card}
+    >
       <img
         src={image}
         alt=""
@@ -42,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </p>
       </div>
       <span className={styles.Card__price}>${price}</span>
-    </div>
+    </Link>
   );
 };
 

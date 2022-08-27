@@ -6,6 +6,7 @@
   margin: 0;
   padding: 0;
   text-decoration: none; 
+  cursor: pointer;
 
   &_primary,
   &_secondary {
@@ -27,5 +28,6 @@
   &_secondary {
     background-color: inherit;
     color: inherit;
+    border: 1px solid $color-bg_3;
   }
 }

@@ -1,0 +1,14 @@
+@import "@styles/_variables";
+
+.Block {
+  &__button {
+    background: url("./../../assets/images/filter.svg") no-repeat;
+    background-position: 42px;
+    background-size: 30px;
+    background-color: $color-bg_1;
+    border: none;
+    box-shadow: 0px 4px 120px rgba(175, 173, 181, 0.15);
+    padding: 26px 52px 26px 82px;
+    height: 100%;    
+  }
+}

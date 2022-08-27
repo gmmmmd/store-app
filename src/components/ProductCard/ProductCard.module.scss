@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
   font-size: 12px;
+  color: inherit;
+  text-decoration: none;
 
   @media (min-width: 1300px) {
     max-width: 394px;
@@ -18,6 +20,7 @@
 
     @media (min-width: $media-tablet) {
       margin-bottom: 26px;
+      max-height: 100%;
     }
   }
 
@@ -43,35 +46,25 @@
 
   &__title {
     margin-bottom: 4px;
-    -ms-text-overflow: ellipsis;
-    text-overflow: ellipsis;
     overflow: hidden;
-    -ms-line-clamp: 2;
     -webkit-line-clamp: 2;
-    line-clamp: 2;
     display: -webkit-box;
-    display: box;
     word-wrap: break-word;
     -webkit-box-orient: vertical;
-    box-orient: vertical;
-
+    height: 36px;
+    
     @media (min-width: $media-tablet) {
       margin-bottom: 6px;
+      height: 67px;
     }
   }
 
   &__description {
-    -ms-text-overflow: ellipsis;
-    text-overflow: ellipsis;
     overflow: hidden;
-    -ms-line-clamp: 2;
     -webkit-line-clamp: 2;
-    line-clamp: 2;
     display: -webkit-box;
-    display: box;
     word-wrap: break-word;
     -webkit-box-orient: vertical;
-    box-orient: vertical;
 
     @media (min-width: $media-tablet) {
       font-size: 18px;

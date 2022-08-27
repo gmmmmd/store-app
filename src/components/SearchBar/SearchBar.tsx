@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 
 import Button from '@components/Button';
 import Input from '@components/Input';
+import Select from '@components/Select';
 
 import styles from './SearchBar.module.scss';
 
-const SearchBar = () => {
+export type SearchBarProps = {
+  isSelectOpen?: boolean;
+};
+
+const SearchBar: React.FC<SearchBarProps> = () => {
   const [values, setValues] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +34,7 @@ const SearchBar = () => {
           </Button>
         </form>{' '}
       </div>
+      <Select className={styles.Block__select} />
     </section>
   );
 };
