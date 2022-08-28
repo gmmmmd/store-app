@@ -8,9 +8,15 @@ import styles from './ProductList.module.scss';
 export type ProductsListProps = {
   products: ProductCardProps[];
   items: number;
+  onClick?: () => void;
+  isLoading: boolean;
 };
 
-const ProductList: React.FC<ProductsListProps> = ({ products, items }) => {
+const ProductList: React.FC<ProductsListProps> = ({
+  products,
+  items,
+  isLoading,
+}) => {
   const [amount, setAmount] = useState(items);
 
   useEffect(() => {

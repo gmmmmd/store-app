@@ -16,10 +16,10 @@ const ProductFullCard: React.FC<ProductCardProps> = ({
   count,
   onClick,
 }) => {
-  const { id } = useParams();
+  const { paramsId } = useParams();
   return (
     <section className={styles.Block}>
-      <div key={id} className={styles.Block__container}>
+      <div key={paramsId} className={styles.Block__container}>
         <img
           src={image}
           alt=""

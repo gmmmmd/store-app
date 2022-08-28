@@ -34,7 +34,13 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 30px 29px;
+    gap: 17px 15px;
+    margin-bottom: 30px;
+
+    @media (min-width: 1300px) {
+      gap: 30px 29px;
+      margin-bottom: 80px;
+    }
   }
 }
 

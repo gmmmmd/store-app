@@ -1,0 +1,16 @@
+@import "@styles/_variables";
+
+.Block {
+  &__items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 17px 15px;
+    padding-bottom: 36px;
+
+    @media (min-width: $media-tablet) {
+      gap: 30px 29px;
+      padding-bottom: 54px;
+    }
+  }
+}

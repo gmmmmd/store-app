@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
+import Loader from '@components/Loader';
+import { LoaderSize } from '@components/Loader/Loader';
 import ProductList from '@components/ProductList';
 import SearchBar from '@components/SearchBar';
 import axios from 'axios';
 
 import styles from './ProductPage.module.scss';
 
-const ProductPage = () => {
+const ProductPage: React.FC = () => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
@@ -34,6 +37,7 @@ const ProductPage = () => {
             })
           )
         );
+        setIsLoading(false);
       } catch (error) {
         alert('server disabled');
       }
@@ -52,7 +56,11 @@ const ProductPage = () => {
         </div>
       </section>
       <SearchBar />
-      <ProductList products={products} items={0} />
+      {isLoading ? (
+        <Loader size={LoaderSize.l} className={styles.Loader} />
+      ) : (
+        <ProductList products={products} items={0} isLoading={isLoading} />
+      )}
     </main>
   );
 };
