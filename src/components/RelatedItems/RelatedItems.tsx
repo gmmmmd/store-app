@@ -13,8 +13,8 @@ export type RelatedProductsProps = {
 const RelatedItems: React.FC<RelatedProductsProps> = ({ relatedProducts }) => {
   return (
     <section>
-      <div>
-        <h2>Relaited Items</h2>
+      <div className={styles.Block}>
+        <h2 className={`${styles.Block__title} title-h2`}>Related Items</h2>
         <div className={styles.Block__items}>
           {relatedProducts &&
             relatedProducts.map((product) => (
