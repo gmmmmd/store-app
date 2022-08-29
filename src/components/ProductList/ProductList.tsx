@@ -9,14 +9,9 @@ export type ProductsListProps = {
   products: ProductCardProps[];
   items: number;
   onClick?: () => void;
-  isLoading: boolean;
 };
 
-const ProductList: React.FC<ProductsListProps> = ({
-  products,
-  items,
-  isLoading,
-}) => {
+const ProductList: React.FC<ProductsListProps> = ({ products, items }) => {
   const [amount, setAmount] = useState(items);
 
   useEffect(() => {
@@ -32,6 +27,7 @@ const ProductList: React.FC<ProductsListProps> = ({
       <div className={styles.ProductList__items}>
         {products.map((product) => (
           <ProductCard
+            key={product.id}
             id={product.id}
             image={product.image}
             category={product.category}

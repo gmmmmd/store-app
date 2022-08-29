@@ -8,11 +8,23 @@ import styles from './Select.module.scss';
 
 export type SelectProps = {
   className?: string;
+  categories?: string[];
+  searchCategory?: string;
+  setSearchCategory?: (i: string) => void;
 };
 
-const Select: React.FC<SelectProps> = ({ className }) => {
+const Select: React.FC<SelectProps> = ({
+  className,
+  categories,
+  searchCategory,
+  setSearchCategory,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const openChange = () => {
+    setIsOpen(!isOpen);
+  };
+  const onChangeValue = (item: string) => {
+    setSearchCategory?.(item);
     setIsOpen(!isOpen);
   };
 
@@ -23,10 +35,28 @@ const Select: React.FC<SelectProps> = ({ className }) => {
       <Button
         onClick={openChange}
         color={ButtonColor.secondary}
-        className={styles.Block__button}
+        className={classNames(styles.Block__button)}
       >
-        Filter
+        {searchCategory ? searchCategory : 'Filter'}
       </Button>
+      {isOpen && (
+        <ul className={styles.Block__list}>
+          {categories &&
+            categories.map((item) => {
+              return (
+                <li key={item}>
+                  <Button
+                    color={ButtonColor.secondary}
+                    className={styles.Block__openButton}
+                    onClick={() => onChangeValue(item)}
+                  >
+                    {item}
+                  </Button>
+                </li>
+              );
+            })}
+        </ul>
+      )}
     </div>
   );
 };

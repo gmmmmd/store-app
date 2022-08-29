@@ -15,6 +15,10 @@
     line-height: calc(18 / 14);
     width: 100%;
 
+    &:hover {
+      opacity: 0.8;
+    }
+
     @media (min-width: $media-tablet) {
       font-size: 18px;
     }
@@ -29,5 +33,9 @@
     background-color: inherit;
     color: inherit;
     border: 1px solid $color-bg_3;
+  }
+
+  &_disabled {
+    background-color: $color-bg_5;
   }
 }

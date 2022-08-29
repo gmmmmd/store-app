@@ -9,6 +9,8 @@ import axios from 'axios';
 import styles from './ProductPage.module.scss';
 
 const ProductPage: React.FC = () => {
+  const [categories, setCategories] = useState();
+  const [searchCategory, setSearchCategory] = useState('');
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -46,6 +48,39 @@ const ProductPage: React.FC = () => {
     fetch();
   }, []);
 
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const getCategoryes = await axios.get(
+          'https://fakestoreapi.com/products/categories'
+        );
+        setCategories(getCategoryes.data);
+        setIsLoading(false);
+      } catch (error) {
+        alert('server disabled');
+      }
+    };
+
+    fetch();
+  }, []);
+
+  useEffect(() => {
+    if (searchCategory) {
+      const fetch = async () => {
+        try {
+          const getCategoryes = await axios.get(
+            `https://fakestoreapi.com/products/category/${searchCategory}`
+          );
+          setProducts(getCategoryes.data);
+          setIsLoading(false);
+        } catch (error) {
+          alert('server disabled');
+        }
+      };
+      fetch();
+    }
+  }, [searchCategory]);
+
   return (
     <main className="Container">
       <section className={styles.TitleWrapper}>
@@ -55,11 +90,15 @@ const ProductPage: React.FC = () => {
           to see our old products please enter the name of the item
         </div>
       </section>
-      <SearchBar />
+      <SearchBar
+        categories={categories}
+        searchCategory={searchCategory}
+        setSearchCategory={setSearchCategory}
+      />
       {isLoading ? (
         <Loader size={LoaderSize.l} className={styles.Loader} />
       ) : (
-        <ProductList products={products} items={0} isLoading={isLoading} />
+        <ProductList products={products} items={0} />
       )}
     </main>
   );

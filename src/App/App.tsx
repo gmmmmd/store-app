@@ -11,7 +11,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Header className="Container" />
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<Navigate to="/product" replace />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/product/:id" element={<SingleProductPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

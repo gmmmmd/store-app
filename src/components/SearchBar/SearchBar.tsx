@@ -8,9 +8,16 @@ import styles from './SearchBar.module.scss';
 
 export type SearchBarProps = {
   isSelectOpen?: boolean;
+  categories: string[] | undefined;
+  searchCategory: string | undefined;
+  setSearchCategory?: (i: string) => void;
 };
 
-const SearchBar: React.FC<SearchBarProps> = () => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  categories,
+  searchCategory,
+  setSearchCategory,
+}) => {
   const [values, setValues] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +41,12 @@ const SearchBar: React.FC<SearchBarProps> = () => {
           </Button>
         </form>{' '}
       </div>
-      <Select className={styles.Block__select} />
+      <Select
+        className={styles.Block__select}
+        categories={categories}
+        searchCategory={searchCategory}
+        setSearchCategory={setSearchCategory}
+      />
     </section>
   );
 };
