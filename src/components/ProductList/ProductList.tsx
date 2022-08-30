@@ -8,15 +8,22 @@ import styles from './ProductList.module.scss';
 export type ProductsListProps = {
   products: ProductCardProps[];
   items: number;
-  onClick?: () => void;
 };
 
-const ProductList: React.FC<ProductsListProps> = ({ products, items }) => {
-  const [amount, setAmount] = useState(items);
+const ProductList: React.FC<ProductsListProps> = ({
+  products,
+  items,
+}: {
+  products: ProductCardProps[];
+  items: number;
+}) => {
+  const [amount, setAmount] = useState<number>(items);
 
   useEffect(() => {
     setAmount(products.length);
-  }, [products.length]);
+  }, [products, products.length]);
+
+  if (!products) return null;
 
   return (
     <section className={styles.ProductList}>
@@ -26,15 +33,7 @@ const ProductList: React.FC<ProductsListProps> = ({ products, items }) => {
       </div>
       <div className={styles.ProductList__items}>
         {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            image={product.image}
-            category={product.category}
-            title={product.title}
-            description={product.description}
-            price={product.price}
-          />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </section>

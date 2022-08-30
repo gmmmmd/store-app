@@ -19,7 +19,7 @@ const Select: React.FC<SelectProps> = ({
   searchCategory,
   setSearchCategory,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const openChange = () => {
     setIsOpen(!isOpen);
   };
@@ -29,7 +29,7 @@ const Select: React.FC<SelectProps> = ({
   };
 
   const selectClasses = classNames(styles.Block, className);
-
+  if (!categories) return null;
   return (
     <div className={selectClasses}>
       <Button
@@ -41,20 +41,19 @@ const Select: React.FC<SelectProps> = ({
       </Button>
       {isOpen && (
         <ul className={styles.Block__list}>
-          {categories &&
-            categories.map((item) => {
-              return (
-                <li key={item}>
-                  <Button
-                    color={ButtonColor.secondary}
-                    className={styles.Block__openButton}
-                    onClick={() => onChangeValue(item)}
-                  >
-                    {item}
-                  </Button>
-                </li>
-              );
-            })}
+          {categories.map((item) => {
+            return (
+              <li key={item}>
+                <Button
+                  color={ButtonColor.secondary}
+                  className={styles.Block__openButton}
+                  onClick={() => onChangeValue(item)}
+                >
+                  {item}
+                </Button>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

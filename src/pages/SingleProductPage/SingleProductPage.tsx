@@ -9,21 +9,10 @@ import { useParams } from 'react-router-dom';
 
 const SingleProductPage: React.FC = () => {
   const { id } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
-  const [category, setCategory] = useState();
-  const [relatedProducts, setRelatedProducts] = useState();
-  const [product, setProduct] = useState({
-    id: null,
-    image: '',
-    category: '',
-    title: '',
-    description: '',
-    price: null,
-    rating: {
-      rate: null,
-      count: null,
-    },
-  });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [category, setCategory] = useState<string>();
+  const [relatedProducts, setRelatedProducts] = useState<[]>();
+  const [product, setProduct] = useState<[]>();
 
   useEffect(() => {
     const fetch = async () => {
@@ -39,6 +28,7 @@ const SingleProductPage: React.FC = () => {
       }
     };
     fetch();
+    window.scrollTo(0, 0);
   }, [id]);
 
   useEffect(() => {
@@ -64,16 +54,7 @@ const SingleProductPage: React.FC = () => {
 
   return (
     <main className="Container">
-      <ProductFullCard
-        id={product.id}
-        image={product.image}
-        category={product.category}
-        title={product.title}
-        description={product.description}
-        price={product.price}
-        rate={product.rating.rate}
-        count={product.rating.count}
-      />
+      {product && <ProductFullCard product={product} />}
       {relatedProducts && <RelatedItems relatedProducts={relatedProducts} />}
     </main>
   );

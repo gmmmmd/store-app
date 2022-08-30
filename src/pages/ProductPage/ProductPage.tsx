@@ -8,53 +8,44 @@ import axios from 'axios';
 
 import styles from './ProductPage.module.scss';
 
+export type ProductItem = {
+  id: number;
+  image: string;
+  category: string;
+  title: string;
+  description: string;
+  price: number;
+};
+
 const ProductPage: React.FC = () => {
-  const [categories, setCategories] = useState();
-  const [searchCategory, setSearchCategory] = useState('');
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [searchCategory, setSearchCategory] = useState<string>('');
+  const [products, setProducts] = useState<[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        const getProducts = await axios.get(
+        const productData = await axios.get(
           'https://fakestoreapi.com/products'
         );
-        setProducts(
-          getProducts.data.map(
-            (i: {
-              id: number;
-              image: string;
-              category: string;
-              title: string;
-              description: string;
-              price: number;
-            }) => ({
-              id: i.id,
-              image: i.image,
-              category: i.category,
-              title: i.title,
-              description: i.description,
-              price: i.price,
-            })
-          )
-        );
+        const result = productData.data;
+        setProducts(result);
         setIsLoading(false);
       } catch (error) {
         alert('server disabled');
       }
     };
-
     fetch();
   }, []);
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        const getCategoryes = await axios.get(
+        const categoriesData = await axios.get(
           'https://fakestoreapi.com/products/categories'
         );
-        setCategories(getCategoryes.data);
+        setCategories(categoriesData.data);
         setIsLoading(false);
       } catch (error) {
         alert('server disabled');

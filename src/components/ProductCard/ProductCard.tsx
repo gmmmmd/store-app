@@ -5,35 +5,32 @@ import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 
 export type ProductCardProps = {
-  id: number | null;
+  id: number;
   image: string;
   category: string;
   title: string;
   description: string;
-  price: number | null;
-  rate?: number | null;
-  count?: number | null;
+  price: number;
+  rate?: number;
+  count?: number;
   onClick?: React.MouseEventHandler;
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({
-  image,
-  category,
-  title,
-  description,
-  price,
-  onClick,
-  id,
-}) => {
+export type Product = {
+  product: ProductCardProps[];
+};
+
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  if (!product) return null;
   return (
     <Link
-      to={`/product/${id}`}
-      key={id}
-      onClick={onClick}
+      to={`/product/${product.id}`}
+      key={product.id}
+      onClick={product.onClick}
       className={styles.Card}
     >
       <img
-        src={image}
+        src={product.image}
         alt=""
         width={394}
         height={360}
@@ -43,14 +40,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
       />
       <div className={styles.Card__textContent}>
         <span className={`text-style ${styles.Card__category}`}>
-          {category}
+          {product.category}
         </span>
-        <h3 className={`${styles.Card__title} title-h3`}>{title}</h3>
+        <h3 className={`${styles.Card__title} title-h3`}>{product.title}</h3>
         <p className={`text-style ${styles.Card__description}`}>
-          {description}
+          {product.description}
         </p>
       </div>
-      <span className={styles.Card__price}>${price}</span>
+      <span className={styles.Card__price}>${product.price}</span>
     </Link>
   );
 };

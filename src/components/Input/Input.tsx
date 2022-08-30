@@ -18,9 +18,9 @@ const Input: React.FC<InputProps> = ({
   onChange,
   className,
   value,
-  ...arrgs
+  ...props
 }) => {
-  let inputDisabled = arrgs.disabled && 'input_disabled';
+  let inputDisabled = props.disabled && 'input_disabled';
   let inputClasses = classNames(styles.Input, className, inputDisabled);
   return (
     <input
@@ -28,8 +28,8 @@ const Input: React.FC<InputProps> = ({
       className={inputClasses}
       onChange={onChange}
       value={value}
-      {...arrgs}
-    ></input>
+      {...props}
+    />
   );
 };
 

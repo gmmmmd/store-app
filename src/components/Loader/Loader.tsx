@@ -12,29 +12,30 @@ export enum LoaderSize {
 }
 
 export type LoaderProps = {
-  loading?: boolean;
+  isLoading?: boolean;
   size?: LoaderSize;
   className?: string;
 };
 
 export const Loader: React.FC<LoaderProps> = ({
-  loading = 'true',
-  size = 'm',
+  isLoading = true,
+  size = LoaderSize.m,
   className,
 }) => {
   let loaderClasses = classNames(styles.Block, className, {
+    //[`styles.Block__size_${size}`]: size, такая конструкция должна работать, но нет(
     [styles.Block_size_l]: LoaderSize.l === size,
     [styles.Block_size_m]: LoaderSize.m === size,
     [styles.Block_size_s]: LoaderSize.s === size,
   });
-  if (loading) {
-    return (
-      <div className={loaderClasses}>
-        <img src={loader} alt="" className={styles.Block__img} />
-      </div>
-    );
+  if (!isLoading) {
+    return null;
   }
-  return null;
+  return (
+    <div className={loaderClasses}>
+      <img src={loader} alt="" className={styles.Block__img} />
+    </div>
+  );
 };
 
 export default Loader;

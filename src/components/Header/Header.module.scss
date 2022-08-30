@@ -1,40 +1,66 @@
 @import "@styles/variables";
 @import "@styles/mixins";
 
-.Wrapper {
+.Block {
   position: relative;
   border-bottom: 2px solid $color-bg_3;  
   padding-top: 20px;
   padding-bottom: 20px;
 
-
   @media (min-width: $media-tablet) {
     padding-top: 40px;
     padding-bottom: 40px;
   }
-}
 
-.Container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-.Logo {
-  width: 99px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  z-index: 55;
+  &__logo {
+    width: 99px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    z-index: 55;
+  
+    @media (min-width: $media-tablet) {
+      width: 130px;
+      height: 42px
+    }
+  
+    &:hover,
+    &:active {
+      opacity: 0.6;
+    }
 
-  @media (min-width: $media-tablet) {
-    width: 130px;
-    height: 42px
+    img {
+      width: 100%;
+    }
+  }
+
+  &__inner {
+    display: none;
+
+    @media (min-width: $media-tablet) {
+      display: flex;
+      gap: 24px;
+    }
+  }
+
+  &__innerLink {
+    display: flex;
+    align-items: center;
+
+    &:hover,
+    &:active {
+      opacity: 0.6;
+    }
   }
 }
 
 .Nav {
-
   &__list {
     @include no-list;
 
@@ -95,28 +121,6 @@
           color: $color-bg_1;
         }
       }
-    }
-  }
-}
-
-.Inner {
-  display: none;
-
-  @media (min-width: $media-tablet) {
-    display: flex;
-    gap: 24px;
-  }
-
-  &__link {
-    display: flex;
-    align-items: center;
-
-    fill: none;
-    stroke: $color-bg_4;
-
-    &:hover,
-    &:active {
-      stroke: $color-bg_2;
     }
   }
 }

@@ -4,8 +4,6 @@ import classNames from 'classnames';
 
 import styles from './Button.module.scss';
 
-// import { WithLoader } from '../WithLoader/WithLoader';
-
 export enum ButtonColor {
   primary = 'primary',
   secondary = 'secondary',
@@ -41,7 +39,6 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={loading}
       {...arrgs}
     >
-      {/* {loading && <WithLoader loading={loading} />} */}
       {children}
     </button>
   );
