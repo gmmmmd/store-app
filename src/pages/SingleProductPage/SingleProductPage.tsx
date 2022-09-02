@@ -6,13 +6,14 @@ import ProductFullCard from '@components/ProductFullCard';
 import RelatedItems from '@components/RelatedItems';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { IProduct } from 'src/types/productType';
 
 const SingleProductPage: React.FC = () => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [category, setCategory] = useState<string>();
   const [relatedProducts, setRelatedProducts] = useState<[]>();
-  const [product, setProduct] = useState<[]>();
+  const [product, setProduct] = useState<IProduct>();
 
   useEffect(() => {
     const fetch = async () => {

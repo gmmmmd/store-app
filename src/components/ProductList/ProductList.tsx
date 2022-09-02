@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
 import ProductCard from '@components/ProductCard';
-import { ProductCardProps } from '@components/ProductCard/ProductCard';
+import { IProduct } from 'src/types/productType';
 
 import styles from './ProductList.module.scss';
 
 export type ProductsListProps = {
-  products: ProductCardProps[];
+  products: IProduct[];
+  product?: IProduct;
   items: number;
 };
 
-const ProductList: React.FC<ProductsListProps> = ({
-  products,
-  items,
-}: {
-  products: ProductCardProps[];
-  items: number;
-}) => {
+const ProductList: React.FC<ProductsListProps> = ({ products, items }) => {
   const [amount, setAmount] = useState<number>(items);
 
   useEffect(() => {

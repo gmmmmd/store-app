@@ -5,6 +5,7 @@ import { LoaderSize } from '@components/Loader/Loader';
 import ProductList from '@components/ProductList';
 import SearchBar from '@components/SearchBar';
 import axios from 'axios';
+import { IProduct } from 'src/types/productType';
 
 import styles from './ProductPage.module.scss';
 
@@ -20,7 +21,7 @@ export type ProductItem = {
 const ProductPage: React.FC = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const [searchCategory, setSearchCategory] = useState<string>('');
-  const [products, setProducts] = useState<[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {

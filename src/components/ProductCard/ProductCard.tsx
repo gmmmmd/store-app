@@ -1,36 +1,21 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import { IProduct } from 'src/types/productType';
 
 import styles from './ProductCard.module.scss';
 
 export type ProductCardProps = {
-  id: number;
-  image: string;
-  category: string;
-  title: string;
-  description: string;
-  price: number;
-  rate?: number;
-  count?: number;
-  onClick?: React.MouseEventHandler;
-};
-
-export type Product = {
-  product: ProductCardProps[];
+  product: IProduct;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { id, image, category, title, description, price } = product;
   if (!product) return null;
   return (
-    <Link
-      to={`/product/${product.id}`}
-      key={product.id}
-      onClick={product.onClick}
-      className={styles.Card}
-    >
+    <Link to={`/product/${id}`} className={styles.Card}>
       <img
-        src={product.image}
+        src={image}
         alt=""
         width={394}
         height={360}
@@ -40,14 +25,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       />
       <div className={styles.Card__textContent}>
         <span className={`text-style ${styles.Card__category}`}>
-          {product.category}
+          {category}
         </span>
-        <h3 className={`${styles.Card__title} title-h3`}>{product.title}</h3>
+        <h3 className={`${styles.Card__title} title-h3`}>{title}</h3>
         <p className={`text-style ${styles.Card__description}`}>
-          {product.description}
+          {description}
         </p>
       </div>
-      <span className={styles.Card__price}>${product.price}</span>
+      <span className={styles.Card__price}>${price}</span>
     </Link>
   );
 };

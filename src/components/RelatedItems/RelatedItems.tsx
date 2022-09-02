@@ -1,13 +1,12 @@
 import React from 'react';
 
-import ProductCard, {
-  ProductCardProps,
-} from '@components/ProductCard/ProductCard';
+import ProductCard from '@components/ProductCard/ProductCard';
+import { IProduct } from 'src/types/productType';
 
 import styles from './RelatedItems.module.scss';
 
 export type RelatedProductsProps = {
-  relatedProducts: ProductCardProps[];
+  relatedProducts: IProduct[];
 };
 
 const RelatedItems: React.FC<RelatedProductsProps> = ({ relatedProducts }) => {
