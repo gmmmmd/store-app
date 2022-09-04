@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 
 import Loader from '@components/Loader';
 import { LoaderSize } from '@components/Loader/Loader';
 import ProductList from '@components/ProductList';
 import SearchBar from '@components/SearchBar';
-import axios from 'axios';
+import { Meta } from '@utils/meta';
+import { observer } from 'mobx-react-lite';
 import { IProduct } from 'src/types/productType';
 
+import { ProductPageContext } from './../../App/App';
 import styles from './ProductPage.module.scss';
 
 export type ProductItem = {
@@ -19,59 +21,24 @@ export type ProductItem = {
 };
 
 const ProductPage: React.FC = () => {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [searchCategory, setSearchCategory] = useState<string>('');
-  const [products, setProducts] = useState<IProduct[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const context = useContext(ProductPageContext);
+  const { ProductsStore } = context;
 
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        const productData = await axios.get(
-          'https://fakestoreapi.com/products'
-        );
-        const result = productData.data;
-        setProducts(result);
-        setIsLoading(false);
-      } catch (error) {
-        alert('server disabled');
-      }
-    };
-    fetch();
-  }, []);
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const categoriesData = await axios.get(
-          'https://fakestoreapi.com/products/categories'
-        );
-        setCategories(categoriesData.data);
-        setIsLoading(false);
-      } catch (error) {
-        alert('server disabled');
-      }
-    };
-
-    fetch();
-  }, []);
-
-  useEffect(() => {
-    if (searchCategory) {
-      const fetch = async () => {
-        try {
-          const getCategoryes = await axios.get(
-            `https://fakestoreapi.com/products/category/${searchCategory}`
-          );
-          setProducts(getCategoryes.data);
-          setIsLoading(false);
-        } catch (error) {
-          alert('server disabled');
-        }
-      };
-      fetch();
+    if (context) {
+      ProductsStore.getProductsList();
     }
-  }, [searchCategory]);
+  }, [ProductsStore, context]);
+
+  useEffect(() => {
+    ProductsStore.getCategories();
+  }, []);
+
+  useEffect(() => {
+    if (ProductsStore.searchCategory) {
+      ProductsStore.getSearchCategory();
+    }
+  }, [ProductsStore, ProductsStore.searchCategory]);
 
   return (
     <main className="Container">
@@ -82,18 +49,14 @@ const ProductPage: React.FC = () => {
           to see our old products please enter the name of the item
         </div>
       </section>
-      <SearchBar
-        categories={categories}
-        searchCategory={searchCategory}
-        setSearchCategory={setSearchCategory}
-      />
-      {isLoading ? (
+      <SearchBar />
+      {ProductsStore.meta === Meta.loading ? (
         <Loader size={LoaderSize.l} className={styles.Loader} />
       ) : (
-        <ProductList products={products} items={0} />
+        <ProductList products={ProductsStore.productsList} items={0} />
       )}
     </main>
   );
 };
 
-export default ProductPage;
+export default observer(ProductPage);
