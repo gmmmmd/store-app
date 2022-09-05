@@ -5,7 +5,7 @@ import { ButtonColor } from '@components/Button/Button';
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 
-import { ProductPageContext } from './../../App/App';
+import { StoreContext } from './../../App/App';
 import styles from './Select.module.scss';
 
 export type SelectProps = {
@@ -16,7 +16,7 @@ export type SelectProps = {
 };
 
 const Select: React.FC<SelectProps> = ({ className }) => {
-  const context = useContext(ProductPageContext);
+  const context = useContext(StoreContext);
   const { ProductsStore } = context;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const openChange = () => {
@@ -24,7 +24,6 @@ const Select: React.FC<SelectProps> = ({ className }) => {
   };
   const onChangeValue = (item: string) => {
     ProductsStore.setSearchCategory(item);
-    console.log(item);
     setIsOpen(!isOpen);
   };
 

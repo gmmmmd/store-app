@@ -8,14 +8,14 @@ import RootStore from '@store/RootStore/RootStore';
 import { useLocal } from '@utils/useLocal';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-export const ProductPageContext = createContext<RootStore>(RootStore);
+export const StoreContext = createContext<RootStore>(RootStore);
 
-export const ProductPageProvider = ProductPageContext.Provider;
+export const StoreProvider = StoreContext.Provider;
 
 const App: React.FC = () => {
   const store = useLocal(() => new RootStore());
   return (
-    <ProductPageProvider value={store}>
+    <StoreProvider value={store}>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -25,7 +25,7 @@ const App: React.FC = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
-    </ProductPageProvider>
+    </StoreProvider>
   );
 };
 

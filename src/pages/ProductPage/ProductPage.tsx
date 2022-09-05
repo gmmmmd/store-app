@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import Loader from '@components/Loader';
 import { LoaderSize } from '@components/Loader/Loader';
@@ -8,7 +8,7 @@ import { Meta } from '@utils/meta';
 import { observer } from 'mobx-react-lite';
 import { IProduct } from 'src/types/productType';
 
-import { ProductPageContext } from './../../App/App';
+import { StoreContext } from './../../App/App';
 import styles from './ProductPage.module.scss';
 
 export type ProductItem = {
@@ -21,7 +21,7 @@ export type ProductItem = {
 };
 
 const ProductPage: React.FC = () => {
-  const context = useContext(ProductPageContext);
+  const context = useContext(StoreContext);
   const { ProductsStore } = context;
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const ProductPage: React.FC = () => {
       {ProductsStore.meta === Meta.loading ? (
         <Loader size={LoaderSize.l} className={styles.Loader} />
       ) : (
-        <ProductList products={ProductsStore.productsList} items={0} />
+        <ProductList />
       )}
     </main>
   );

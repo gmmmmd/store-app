@@ -26,13 +26,15 @@ export default class ProductsStore {
       _productsList: observable.ref,
       _meta: observable,
       _categories: observable.ref,
-      _searchCategory: observable.ref,
+      _searchCategory: observable,
       getCategories: action.bound,
       getProductsList: action.bound,
+      getSearchCategory: action.bound,
+      setSearchCategory: action.bound,
+      meta: computed,
       productsList: computed,
       categories: computed,
       searchCategory: computed,
-      getSearchCategory: action.bound,
     });
   }
 
