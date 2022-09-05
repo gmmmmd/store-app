@@ -3,21 +3,18 @@ import React, { useState } from 'react';
 import Button from '@components/Button';
 import Input from '@components/Input';
 import Select from '@components/Select';
+import { observer } from 'mobx-react-lite';
 
 import styles from './SearchBar.module.scss';
 
 export type SearchBarProps = {
   isSelectOpen?: boolean;
-  categories: string[];
-  searchCategory: string;
-  setSearchCategory?: (i: string) => void;
+  categories?: string[];
+  searchCategory?: string;
+  setCategory?: (i: string) => void;
 };
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  categories,
-  searchCategory,
-  setSearchCategory,
-}) => {
+const SearchBar: React.FC<SearchBarProps> = () => {
   const [values, setValues] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,14 +38,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
           </Button>
         </form>
       </div>
-      <Select
-        className={styles.Block__select}
-        categories={categories}
-        searchCategory={searchCategory}
-        setSearchCategory={setSearchCategory}
-      />
+      <Select className={styles.Block__select} />
     </section>
   );
 };
 
-export default SearchBar;
+export default observer(SearchBar);

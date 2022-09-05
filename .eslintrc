@@ -7,7 +7,7 @@
   "rules": {
     "quotes": ["warn", "single"],
     "jsx-quotes": ["warn", "prefer-double"],
-    //"no-console": "error",    
+    "no-console": "error",    
     "prettier/prettier": [
       "error",
       {

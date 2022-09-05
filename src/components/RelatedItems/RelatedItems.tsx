@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import ProductCard from '@components/ProductCard/ProductCard';
+import { Meta } from '@utils/meta';
+import { observer } from 'mobx-react-lite';
 import { IProduct } from 'src/types/productType';
 
+import { StoreContext } from './../../App/App';
 import styles from './RelatedItems.module.scss';
 
 export type RelatedProductsProps = {
-  relatedProducts: IProduct[];
+  relatedProducts?: IProduct[];
 };
 
-const RelatedItems: React.FC<RelatedProductsProps> = ({ relatedProducts }) => {
+const RelatedItems: React.FC<RelatedProductsProps> = () => {
+  const context = useContext(StoreContext);
+  const { SingleProductStore } = context;
   return (
     <section>
       <div className={styles.Block}>
         <h2 className={`${styles.Block__title} title-h2`}>Related Items</h2>
         <div className={styles.Block__items}>
-          {relatedProducts &&
-            relatedProducts.map((product) => (
+          {SingleProductStore.meta === Meta.success &&
+            SingleProductStore.relatedProducts.map((product: IProduct) => (
               <ProductCard key={product.id} product={product} />
             ))}
         </div>
@@ -25,4 +30,4 @@ const RelatedItems: React.FC<RelatedProductsProps> = ({ relatedProducts }) => {
   );
 };
 
-export default RelatedItems;
+export default observer(RelatedItems);
