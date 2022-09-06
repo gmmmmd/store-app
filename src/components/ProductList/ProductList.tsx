@@ -1,24 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import ProductCard from '@components/ProductCard';
-import { IProduct } from 'src/types/productType';
+import { observer } from 'mobx-react-lite';
 
+import { StoreContext } from '../../App/App';
 import styles from './ProductList.module.scss';
 
-export type ProductsListProps = {
-  products: IProduct[];
-  product?: IProduct;
-  items: number;
-};
+const ProductList: React.FC = () => {
+  const [amount, setAmount] = useState<number>(0);
 
-const ProductList: React.FC<ProductsListProps> = ({ products, items }) => {
-  const [amount, setAmount] = useState<number>(items);
+  const context = useContext(StoreContext);
+  const { ProductsStore } = context;
+
+  const searchList = ProductsStore.productsList.filter((product) => {
+    return (
+      product.title.toLowerCase().includes(ProductsStore.query) ||
+      product.description.toLowerCase().includes(ProductsStore.query)
+    );
+  });
 
   useEffect(() => {
-    setAmount(products.length);
-  }, [products, products.length]);
+    setAmount(ProductsStore.productsList.length);
+  }, [ProductsStore.productsList, searchList.length]);
 
-  if (!products) return null;
+  if (!ProductsStore.productsList) return null;
 
   return (
     <section className={styles.ProductList}>
@@ -27,7 +32,7 @@ const ProductList: React.FC<ProductsListProps> = ({ products, items }) => {
         <span className={styles.ProductList__amount}>{amount}</span>
       </div>
       <div className={styles.ProductList__items}>
-        {products.map((product) => (
+        {ProductsStore.productsList.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
@@ -35,4 +40,4 @@ const ProductList: React.FC<ProductsListProps> = ({ products, items }) => {
   );
 };
 
-export default ProductList;
+export default observer(ProductList);

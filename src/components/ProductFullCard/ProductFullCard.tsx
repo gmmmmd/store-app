@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Button, { ButtonColor } from '@components/Button/Button';
-import { IProduct } from 'src/types/productType';
+import { observer } from 'mobx-react-lite';
 
+import { StoreContext } from '../../App/App';
 import styles from './ProductFullCard.module.scss';
 
-export type ProductFullCardProps = {
-  product: IProduct;
-};
+const ProductFullCard: React.FC = () => {
+  const context = useContext(StoreContext);
+  const { SingleProductStore } = context;
 
-const ProductFullCard: React.FC<ProductFullCardProps> = ({ product }) => {
-  const { id, image, category, title, description, price, rating } = product;
   return (
     <section className={styles.Block}>
-      <div key={id} className={styles.Block__container}>
+      <div
+        key={SingleProductStore.product.id}
+        className={styles.Block__container}
+      >
         <img
-          src={image}
+          src={SingleProductStore.product.image}
           alt=""
           width={600}
           height={600}
@@ -25,24 +27,28 @@ const ProductFullCard: React.FC<ProductFullCardProps> = ({ product }) => {
         />
         <div className={styles.Block__info}>
           <div className={styles.Block__titleWrapper}>
-            <h2 className={`${styles.Block__title} title-h2`}>{title}</h2>
+            <h2 className={`${styles.Block__title} title-h2`}>
+              {SingleProductStore.product.title}
+            </h2>
             <span className={`${styles.Block__category} text-style`}>
-              {category}
+              {SingleProductStore.product.category}
             </span>
           </div>
           <div className={styles.Block__ratingWrapper}>
             <span className={styles.Block__ratingTitle}>Rating</span>
-            {rating && (
+            {SingleProductStore.product.rating && (
               <div className={styles.Block__ratingInner}>
-                <span>stars: {rating.rate}</span>
-                <span>count: {rating.count}</span>
+                <span>stars: {SingleProductStore.product.rating.rate}</span>
+                <span>count: {SingleProductStore.product.rating.count}</span>
               </div>
             )}
           </div>
           <div className={`${styles.Block__description} text-style`}>
-            {description}
+            {SingleProductStore.product.description}
           </div>
-          <div className={`${styles.Block__price} title-h2`}>${price}</div>
+          <div className={`${styles.Block__price} title-h2`}>
+            ${SingleProductStore.product.price}
+          </div>
           <div className={styles.Block__buttonWrapper}>
             <Button
               className={styles.Block__button}
@@ -63,4 +69,4 @@ const ProductFullCard: React.FC<ProductFullCardProps> = ({ product }) => {
   );
 };
 
-export default ProductFullCard;
+export default observer(ProductFullCard);
