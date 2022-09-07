@@ -15,6 +15,10 @@ const ProductPage: React.FC = () => {
   const { ProductsStore } = context;
 
   useEffect(() => {
+    return () => ProductsStore.destroy();
+  }, []);
+
+  useEffect(() => {
     if (ProductsStore) {
       ProductsStore.getProductsList();
     }

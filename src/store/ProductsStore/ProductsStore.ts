@@ -70,6 +70,7 @@ export default class ProductsStore {
   // value запроса
   setQuery = (item: string) => {
     this._query = item;
+    rootStore.query.setSearch(item);
   };
 
   // запрос по Value
@@ -148,9 +149,12 @@ export default class ProductsStore {
   }
 
   private readonly _qpReaction: IReactionDisposer = reaction(
-    () => rootStore.query.getParams('search'),
+    () => {
+      rootStore.query.getParams('search');
+      console.log(rootStore.query.getParams('search'))
+    },
     (search) => {
-      console.log(1);
+      console.log('search value change', search);
     }
   );
 }

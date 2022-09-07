@@ -12,19 +12,14 @@ const ProductList: React.FC = () => {
   const context = useContext(StoreContext);
   const { ProductsStore } = context;
 
-  const searchList = ProductsStore.productsList.filter((product) => {
-    return (
-      product.title.toLowerCase().includes(ProductsStore.query) ||
-      product.description.toLowerCase().includes(ProductsStore.query)
-    );
-  });
-
   useEffect(() => {
     setAmount(ProductsStore.productsList.length);
-  }, [ProductsStore.productsList, searchList.length]);
+  }, [ProductsStore.productsList]);
 
   if (!ProductsStore.productsList) return null;
-
+  if (amount === 0) {
+    return <h1>Nothing was found, try again</h1>;
+  }
   return (
     <section className={styles.ProductList}>
       <div className={styles.ProductList__header}>

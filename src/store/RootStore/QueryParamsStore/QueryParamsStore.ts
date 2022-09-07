@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import * as qs from 'qs';
+import qs from 'qs';
 
 type PrivateFields = '_params';
 
@@ -22,10 +22,11 @@ export default class QueryParamsStore {
 
   setSearch(search: string) {
     search = search.startsWith(' ? ') ? search.slice(1) : search;
-
+ 
     if (this._search !== search) {
       this._search = search;
       this._params = qs.parse(search);
+      console.log(this._params);
     }
   }
 }
