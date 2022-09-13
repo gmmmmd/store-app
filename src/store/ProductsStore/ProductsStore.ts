@@ -151,7 +151,6 @@ export default class ProductsStore {
   private readonly _qpReaction: IReactionDisposer = reaction(
     () => {
       rootStore.query.getParams('search');
-      console.log(rootStore.query.getParams('search'))
     },
     (search) => {
       console.log('search value change', search);
