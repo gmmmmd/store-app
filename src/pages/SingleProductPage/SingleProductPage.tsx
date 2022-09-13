@@ -1,64 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import Loader from '@components/Loader';
 import { LoaderSize } from '@components/Loader/Loader';
 import ProductFullCard from '@components/ProductFullCard';
 import RelatedItems from '@components/RelatedItems';
-import axios from 'axios';
+import { Meta } from '@utils/meta';
+import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
-import { IProduct } from 'src/types/productType';
+
+import { StoreContext } from '../../App/App';
 
 const SingleProductPage: React.FC = () => {
+  const context = useContext(StoreContext);
+  const { SingleProductStore } = context;
+
   const { id } = useParams();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [category, setCategory] = useState<string>();
-  const [relatedProducts, setRelatedProducts] = useState<[]>();
-  const [product, setProduct] = useState<IProduct>();
 
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        const getFullProduct = await axios.get(
-          `https://fakestoreapi.com/products/${id}`
-        );
-        setProduct(getFullProduct.data);
-        setCategory(getFullProduct.data.category);
-        setIsLoading(false);
-      } catch (error) {
-        alert('server disabled');
-      }
-    };
-    fetch();
+    SingleProductStore.setId(id);
+
+    SingleProductStore.getFullProduct();
+
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [SingleProductStore, id]);
 
   useEffect(() => {
-    if (category) {
-      const fetchCategory = async () => {
-        try {
-          const getCategory = await axios.get(
-            `https://fakestoreapi.com/products/category/${category}`
-          );
-          setRelatedProducts(getCategory.data);
-          setIsLoading(false);
-        } catch (error) {
-          alert('server disabled');
-        }
-      };
-      fetchCategory();
+    if (SingleProductStore.category) {
+      SingleProductStore.getRelatedProducts();
     }
-  }, [category]);
+  }, [SingleProductStore, SingleProductStore.category]);
 
-  if (isLoading) {
+  if (SingleProductStore.meta === Meta.loading) {
     return <Loader size={LoaderSize.l} />;
   }
 
   return (
     <main className="Container">
-      {product && <ProductFullCard product={product} />}
-      {relatedProducts && <RelatedItems relatedProducts={relatedProducts} />}
+      <ProductFullCard />
+      <RelatedItems />
     </main>
   );
 };
 
-export default SingleProductPage;
+export default observer(SingleProductPage);

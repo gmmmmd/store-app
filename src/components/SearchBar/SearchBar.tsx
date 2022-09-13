@@ -1,37 +1,34 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import Button from '@components/Button';
 import Input from '@components/Input';
 import Select from '@components/Select';
+import { observer } from 'mobx-react-lite';
 
+import { StoreContext } from '../../App/App';
 import styles from './SearchBar.module.scss';
 
-export type SearchBarProps = {
-  isSelectOpen?: boolean;
-  categories: string[];
-  searchCategory: string;
-  setSearchCategory?: (i: string) => void;
-};
-
-const SearchBar: React.FC<SearchBarProps> = ({
-  categories,
-  searchCategory,
-  setSearchCategory,
-}) => {
-  const [values, setValues] = useState<string>('');
+const SearchBar: React.FC = () => {
+  const context = useContext(StoreContext);
+  const { ProductsStore } = context;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setValues(value);
+    ProductsStore.setQuery(value);
+  };
+
+  const SearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    ProductsStore.getSearch();
   };
 
   return (
     <section className={styles.Block}>
       <div className={styles.Block__wrapper}>
-        <form className={styles.Block__form}>
+        <form className={styles.Block__form} onSubmit={SearchSubmit}>
           <Input
             type="text"
-            value={values}
+            value={ProductsStore.query}
             onChange={handleChange}
             placeholder={'Search property'}
             className={styles.Block__input}
@@ -41,14 +38,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
           </Button>
         </form>
       </div>
-      <Select
-        className={styles.Block__select}
-        categories={categories}
-        searchCategory={searchCategory}
-        setSearchCategory={setSearchCategory}
-      />
+      <Select className={styles.Block__select} />
     </section>
   );
 };
 
-export default SearchBar;
+export default observer(SearchBar);
